@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BYU Information Systems Career Launchpad — explore IS career paths and practice interviews." />
+  <title>IS Career Launchpad | BYU Information Systems</title>
+  <style>
+    :root {
+      --navy: #002E5D;
+      --blue: #0062A3;
+      --sky: #EAF4FB;
+      --ink: #172033;
+      --muted: #657083;
+      --line: #D9E1EA;
+      --white: #ffffff;
+      --surface: #F6F8FB;
+      --success: #157347;
+      --shadow: 0 16px 40px rgba(15, 35, 60, 0.10);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.55;
+    }
+    button, a { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--navy);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+    .brand small { display: block; color: var(--muted); font-weight: 600; }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links button {
+      border: 0;
+      background: transparent;
+      color: #3A4555;
+      font-weight: 700;
+      padding: 10px 14px;
+      border-radius: 10px;
+    }
+    .nav-links button:hover, .nav-links button.active { background: var(--sky); color: var(--navy); }
+
+    main { min-height: calc(100vh - 70px); }
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .hero {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(0,98,163,.17), transparent 30%),
+        linear-gradient(135deg, #FFFFFF 0%, #F3F8FC 50%, #EAF4FB 100%);
+      padding: 82px 22px 78px;
+    }
+    .hero-inner { max-width: 1180px; margin: 0 auto; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--navy);
+      background: #DCECF8;
+      border: 1px solid #C9E0F0;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    h1 {
+      margin: 18px 0 16px;
+      max-width: 850px;
+      font-size: clamp(2.6rem, 6vw, 5.2rem);
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: 1.13rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-weight: 800;
+      transition: .18s ease;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,46,93,.2); }
+    .btn-secondary { background: #fff; color: var(--navy); border: 1px solid var(--line); }
+    .btn-secondary:hover { background: var(--sky); }
+
+    .section { max-width: 1180px; margin: 0 auto; padding: 64px 22px; }
+    .section-heading { max-width: 760px; margin-bottom: 28px; }
+    .section-heading h2 { margin: 0 0 10px; font-size: clamp(2rem, 3vw, 3rem); letter-spacing: -.04em; }
+    .section-heading p { margin: 0; color: var(--muted); }
+
+    .feature-grid, .career-grid, .interview-grid { display: grid; gap: 18px; }
+    .feature-grid { grid-template-columns: repeat(3, 1fr); }
+    .feature-card, .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .feature-card { padding: 24px; }
+    .feature-number {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--sky); color: var(--navy); display: grid; place-items: center; font-weight: 900;
+      margin-bottom: 18px;
+    }
+    .feature-card h3 { margin: 0 0 8px; }
+    .feature-card p { margin: 0; color: var(--muted); }
+
+    .path-card {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      min-height: 210px;
+    }
+    .path-card .tag { align-self: flex-start; }
+    .path-card h3 { margin: 14px 0 8px; }
+    .path-card p { color: var(--muted); margin: 0 0 18px; flex: 1; }
+    .tag {
+      display: inline-flex; padding: 5px 9px; border-radius: 8px; background: #EEF2F6; color: #4A5565; font-size: .78rem; font-weight: 800;
+    }
+    .path-link { color: var(--blue); font-weight: 800; background: none; border: 0; padding: 0; text-align: left; }
+    .path-link:hover { text-decoration: underline; }
+    .career-details { margin-top: 14px; }
+    .prep-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; }
+    .prep-box { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+    .prep-box h4 { margin: 0 0 7px; font-size: .95rem; }
+    .prep-box ul { margin: 0 0 0 18px; padding: 0; color: #334155; font-size: .9rem; }
+    .prep-box li { margin-bottom: 5px; }
+    .career-modal {
+      position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center;
+      padding: 24px; background: rgba(15, 35, 60, .58); backdrop-filter: blur(5px);
+    }
+    .career-modal.show { display: flex; }
+    .career-modal-card {
+      width: min(920px, 100%); max-height: 88vh; overflow-y: auto; background: #fff;
+      border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 24px 70px rgba(15,35,60,.28); padding: 28px;
+    }
+    .career-modal-header { display:flex; justify-content:space-between; gap:18px; align-items:flex-start; margin-bottom:18px; }
+    .career-modal-header h3 { margin: 8px 0 0; font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing:-.04em; }
+    .modal-close { border:1px solid var(--line); background:#fff; color:var(--navy); width:40px; height:40px; border-radius:12px; font-size:1.25rem; font-weight:900; }
+    .modal-close:hover { background:var(--sky); }
+    .modal-section { margin-top: 22px; }
+    .modal-section h4 { margin: 0 0 10px; font-size: 1.05rem; }
+    .modal-section p { color: var(--muted); margin: 0; }
+    .interview-note { margin-top:12px; padding:12px 14px; border-radius:12px; background:var(--sky); border:1px solid #C9E0F0; color:#334155; font-size:.9rem; }
+    .career-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .career-detail-box {
+      background: #F7FAFC;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .career-detail-box strong {
+      display: block;
+      font-size: .78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 5px;
+    }
+    .career-detail-box p { margin: 0; color: #334155; font-size: .9rem; }
+    .career-detail-box ul { margin: 6px 0 0 18px; padding: 0; color: #334155; font-size: .9rem; }
+    .career-detail-box li { margin-bottom: 4px; }
+    .career-salary {
+      margin-top: 12px;
+      background: var(--sky);
+      border: 1px solid #C9E0F0;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: .9rem;
+    }
+    .career-salary strong { color: var(--navy); }
+    .career-grid { grid-template-columns: repeat(4, 1fr); }
+
+    .module-banner {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 24px;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 26px;
+      align-items: center;
+      margin-top: 42px;
+    }
+    .module-banner p { color: #CFDDEA; }
+    .module-banner .btn-secondary { justify-self: end; }
+
+    .module-shell { max-width: 1060px; margin: 0 auto; padding: 54px 22px 80px; }
+    .module-header { display: flex; align-items: end; justify-content: space-between; gap: 22px; margin-bottom: 28px; }
+    .module-header h2 { margin: 0 0 7px; font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: -.045em; }
+    .module-header p { margin: 0; color: var(--muted); }
+
+    .progress-wrap { margin: 0 0 28px; }
+    .progress-meta { display: flex; justify-content: space-between; font-size: .84rem; font-weight: 800; color: var(--muted); margin-bottom: 7px; }
+    .progress-track { width: 100%; height: 8px; border-radius: 999px; background: #E7ECF1; overflow: hidden; }
+    .progress-bar { height: 100%; width: 25%; background: var(--blue); transition: width .25s ease; }
+
+    .question-card { padding: 30px; }
+    .question-card h3 { margin: 0 0 22px; font-size: clamp(1.4rem, 2.4vw, 2rem); }
+    .choice-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .choice {
+      position: relative;
+      border: 2px solid var(--line);
+      background: #fff;
+      border-radius: 15px;
+      padding: 18px;
+      text-align: left;
+      min-height: 116px;
+      transition: .16s ease;
+    }
+    .choice:hover { border-color: #88B7D8; transform: translateY(-1px); box-shadow: 0 8px 22px rgba(15,35,60,.08); }
+    .choice strong { display: block; margin-bottom: 5px; color: var(--ink); }
+    .choice span { display: block; color: var(--muted); font-size: .94rem; }
+    .choice.selected { border-color: var(--blue); background: var(--sky); }
+    .choice .check { position: absolute; top: 12px; right: 12px; display: none; color: var(--blue); font-weight: 900; }
+    .choice.selected .check { display: block; }
+
+    .question-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+
+    .result-card { display: none; padding: 34px; }
+    .result-card.show { display: block; }
+    .result-kicker { color: var(--success); font-weight: 900; text-transform: uppercase; font-size: .78rem; letter-spacing: .08em; }
+    .result-card h3 { font-size: 2.25rem; margin: 8px 0 10px; letter-spacing: -.04em; }
+    .result-card p { color: var(--muted); max-width: 720px; }
+    .reason-box { background: #F7FAFC; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin: 22px 0; }
+    .reason-box strong { display: block; margin-bottom: 7px; }
+    .result-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 16px; }
+    .mini { border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: #fff; }
+    .mini b { display: block; font-size: .82rem; color: var(--muted); margin-bottom: 5px; }
+
+    .career-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .career-option {
+      border: 1px solid var(--line); background: #fff; border-radius: 14px; padding: 18px; text-align: left;
+    }
+    .career-option:hover { border-color: #88B7D8; }
+    .career-option h4 { margin: 0 0 6px; }
+    .career-option p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+    .interview-grid { grid-template-columns: .75fr 1.25fr; align-items: start; }
+    .role-card-list { display: grid; gap: 11px; }
+    .role-choice { width: 100%; text-align: left; background: #fff; border: 1px solid var(--line); border-radius: 13px; padding: 15px; }
+    .role-choice.active { border-color: var(--blue); background: var(--sky); }
+    .role-choice strong { display: block; }
+    .role-choice span { color: var(--muted); font-size: .88rem; }
+    .interview-panel { padding: 26px; min-height: 470px; }
+    .type-pill { display: inline-flex; border-radius: 999px; padding: 5px 9px; background: #EEF2F6; font-size: .75rem; font-weight: 900; text-transform: uppercase; letter-spacing: .05em; }
+    .interview-panel h3 { font-size: 1.8rem; line-height: 1.18; margin: 14px 0 16px; }
+    .answer-box { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 22px; }
+    .answer-box summary { cursor: pointer; color: var(--blue); font-weight: 900; }
+    .sample { margin-top: 14px; padding: 18px; background: #F7FAFC; border-radius: 13px; border: 1px solid var(--line); }
+    .sample p { margin: 0; color: #334155; }
+    .interview-controls { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+
+    .empty-state { color: var(--muted); text-align: center; padding: 55px 20px; border: 2px dashed var(--line); border-radius: 16px; }
+    footer { padding: 34px 22px 46px; color: var(--muted); text-align: center; font-size: .9rem; }
+
+    @media (max-width: 900px) {
+      .career-grid, .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .interview-grid { grid-template-columns: 1fr; }
+      .module-banner { grid-template-columns: 1fr; }
+      .module-banner .btn-secondary { justify-self: start; }
+    }
+    @media (max-width: 620px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      .nav-links { width: 100%; }
+      .nav-links button { flex: 1; }
+      .hero { padding-top: 58px; }
+      .feature-grid, .career-grid, .choice-grid, .result-grid, .career-list { grid-template-columns: 1fr; }
+      .career-detail-grid { grid-template-columns: 1fr; }
+      .module-header { align-items: flex-start; flex-direction: column; }
+      .question-actions { flex-direction: column; }
+      .question-actions .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Main navigation">
+      <button class="brand" onclick="goTo('home')" aria-label="Return home">
+        <span class="brand-mark">IS</span>
+        <span>Career Launchpad<small>BYU Information Systems</small></span>
+      </button>
+      <div class="nav-links">
+        <button id="nav-home" onclick="goTo('home')">Home</button>
+        <button id="nav-discover" onclick="goTo('discover')">Part 1 · Discover</button>
+        <button id="nav-interview" onclick="goTo('interview')">Part 2 · Interview</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home" class="view active">
+      <div class="hero">
+        <div class="hero-inner">
+          <span class="eyebrow">BYU IS Career Launchpad</span>
+          <h1>Find an IS path. Then practice for the interview.</h1>
+          <p>
+            A simple starting point for new Information Systems students: explore the range of IS careers,
+            identify a path that matches your interests, and practice role-specific interview questions.
+          </p>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="goTo('discover')">Start career discovery →</button>
+            <button class="btn btn-secondary" onclick="goTo('interview')">Explore mock interviews</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-heading">
+          <h2>Two steps from “What can I do?” to “How do I prepare?”</h2>
+          <p>The prototype is intentionally structured so the content can be expanded as your team researches specific paths, tools, salaries, and interview formats.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-number">01</div>
+            <h3>Discover</h3>
+            <p>Answer a few clickable questions about the kind of work you enjoy. The decision tree recommends a career path and explains why it fits.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">02</div>
+            <h3>Explore</h3>
+            <p>Review the eight starter career tracks and see the categories that can be expanded into richer role profiles.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">03</div>
+            <h3>Practice</h3>
+            <p>Select a path and work through a mock interview with behavioral and technical question placeholders plus sample-answer guidance.</p>
+          </article>
+        </div>
+
+        <div class="module-banner">
+          <div>
+            <h3 style="font-size:1.6rem; margin:0 0 7px;">Built for the first step of an IS career</h3>
+            <p style="margin:0;">Start broad, choose a direction, and use the same destination to launch focused interview preparation.</p>
+          </div>
+          <button class="btn btn-secondary" onclick="goTo('discover')">Take the decision tree</button>
+        </div>
+      </div>
+
+      <div class="section" style="padding-top: 10px;">
+        <div class="section-heading">
+          <h2>Eight starter career paths</h2>
+          <p>These eight tracks are the starting point. Open any path to see the role, skills to build now, ways to get your foot in the door, and project ideas.</p>
+        </div>
+        <div class="career-grid" id="homeCareerGrid"></div>
+      </div>
+    </section>
+
+    <!-- PART 1 -->
+    <section id="discover" class="view">
+      <div class="module-shell">
+        <div class="module-header">
+          <div>
+            <span class="eyebrow">Part 1</span>
+            <h2>Which IS career path fits you?</h2>
+            <p>Choose the tile that feels most like you. No typing. No dropdowns.</p>
+          </div>
+          <button class="btn btn-secondary" onclick="restartTree()">↻ Restart</button>
+        </div>
+
+        <div id="treeProgress" class="progress-wrap">
+          <div class="progress-meta"><span id="progressLabel">Question 1 of 5</span><span id="progressPercent">20%</span></div>
+          <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        </div>
+
+        <div id="treeQuestion" class="card question-card">
+          <h3 id="questionText"></h3>
+          <div id="choiceGrid" class="choice-grid"></div>
+          <div class="question-actions">
+            <button id="backBtn" class="btn btn-secondary" onclick="treeBack()">← Back</button>
+            <button id="nextBtn" class="btn btn-primary" onclick="treeNext()" disabled>Next question →</button>
+          </div>
+        </div>
+
+        <div id="treeResult" class="card result-card"></div>
+
+        <div id="allPaths" style="display:none; margin-top:34px;">
+          <div class="section-heading" style="margin-bottom:18px;">
+            <h2 style="font-size:2rem;">Explore all paths</h2>
+            <p>Your recommendation is a starting point—not a final answer.</p>
+          </div>
+          <div class="career-list" id="discoverCareerList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section id="interview" class="view">
+      <div class="module-shell">
+        <div class="module-header">
+          <div>
+            <span class="eyebrow">Part 2</span>
+            <h2>Practice your interview</h2>
+            <p>Pick a career path, then move through behavioral and technical practice questions.</p>
+          </div>
+          <button class="btn btn-secondary" onclick="goTo('discover')">← Back to discovery</button>
+        </div>
+
+        <div class="interview-grid">
+          <aside class="card" style="padding:18px;">
+            <strong style="display:block; margin:4px 4px 12px;">Choose a role</strong>
+            <div id="roleList" class="role-card-list"></div>
+          </aside>
+
+          <article id="interviewPanel" class="card interview-panel">
+            <div class="empty-state">Choose a career path to begin your mock interview.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    IS Career Launchpad · Prototype framework for BYU Information Systems students
+  </footer>
+
+  <div id="careerModal" class="career-modal" role="dialog" aria-modal="true" aria-labelledby="careerModalTitle" onclick="closeCareerModal(event)">
+    <div class="career-modal-card" onclick="event.stopPropagation()">
+      <div id="careerModalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    // Starter data based on the eight suggested career tracks in the case document.
+    // Replace/expand these objects with your team's validated research in the next iteration.
+    const careers = [
+      {
+        id: 'developer',
+        title: 'Software / Application Developer',
+        category: 'Build',
+        description: 'Build and improve apps and computer programs by turning problems into working software, testing it, fixing errors, and updating it after launch.',
+        keywords: ['build', 'code', 'technical', 'software'],
+        formal: 'Analyzes user and organizational requirements, designs software architecture and components, implements application logic, tests functionality, documents technical decisions, and maintains software across the development lifecycle.',
+        roles: ['Front-End Developer', 'Back-End Developer', 'Full-Stack Developer', 'Mobile Application Developer', 'Software Engineer', 'Application Integration Developer', 'Quality Assurance Automation Engineer'],
+        responsibilities: ['Translate user needs into software designs.', 'Write, review, test, and debug code.', 'Integrate applications with databases, APIs, authentication systems, and other services.', 'Correct defects and improve performance, security, and reliability.', 'Document code, system behavior, and deployment procedures.'],
+        day: ['Team stand-up and requirement clarification', 'Writing or debugging code', 'Reviewing another developer’s changes', 'Running automated tests', 'Troubleshooting, deployment, or documentation'],
+        coworkers: 'Product managers, designers, analysts, testers, and other engineers.',
+        workload: 'Full-time and computer-intensive; concentrated individual problem-solving mixed with collaboration. Sprint deadlines and releases can create urgent work when production issues occur.',
+        entry: ['Junior Software Developer', 'Software Developer Intern', 'QA Automation Engineer'],
+        salary: '$129,860 Utah statewide mean (May 2025); median $128,810. The 10th percentile is about $77,810 and is a directional early-career benchmark, not an official starting salary.',
+        workStyle: 'Coding: High · Meetings: Low to moderate · Operational urgency: Moderate; high during incidents',
+        output: 'Working feature, code change, test, or deployment',
+        tryIf: ['You enjoy building technical solutions', 'You like solving problems with code', 'You want to create things people can use']
+      },
+      {
+        id: 'analyst',
+        title: 'Business / Systems Analyst',
+        category: 'Bridge',
+        description: 'Help a company use technology better by understanding business needs, improving processes, and connecting employees with technical teams.',
+        keywords: ['business', 'process', 'people', 'systems'],
+        formal: 'Examines organizational processes, information flows, user requirements, and existing technology to identify inefficiencies and design improved systems.',
+        roles: ['Business Analyst', 'Systems Analyst', 'Business Systems Analyst', 'Requirements Analyst', 'Process Analyst', 'Implementation Analyst', 'Programmer Analyst'],
+        responsibilities: ['Interview users and managers to understand needs and pain points.', 'Map current processes and design improved workflows.', 'Write requirements, process diagrams, user stories, and acceptance criteria.', 'Evaluate software options and conduct cost-benefit analysis.', 'Coordinate user acceptance testing, training, and system adoption.'],
+        day: ['Requirements meeting with business users', 'Documenting workflows and process diagrams', 'Answering developer questions', 'Reviewing vendor proposals or writing acceptance criteria', 'Testing features and investigating data-mapping problems'],
+        coworkers: 'Business users, managers, developers, vendors, testers, and other technical teams.',
+        workload: 'Moderate-to-high collaboration load with frequent switching between meetings, documentation, analysis, and testing. Launch deadlines may produce longer hours.',
+        entry: ['Business Analyst Intern', 'Junior Business Analyst', 'Systems Analyst'],
+        salary: '$99,180 Utah statewide mean for computer systems analysts (May 2025); median $98,770. The statewide range is about $62,130–$133,450 from the 10th to 90th percentiles.',
+        workStyle: 'Coding: Low to moderate · Meetings: High · Operational urgency: Moderate near launches',
+        output: 'Requirements, process map, test plan, or recommendation',
+        tryIf: ['You like improving how work gets done', 'You enjoy translating between people and technology', 'You like asking questions and organizing information']
+      },
+      {
+        id: 'data',
+        title: 'Data Analyst / Data Scientist',
+        category: 'Analyze',
+        description: 'Find useful answers in numbers by cleaning data, looking for patterns, building charts or models, and explaining what an organization should do next.',
+        keywords: ['data', 'numbers', 'analysis', 'insight'],
+        formal: 'Converts raw organizational data into reliable evidence for decisions. Data scientists extend this work into statistical modeling, machine learning, experimentation, forecasting, and production analytics.',
+        roles: ['Data Analyst', 'Business Intelligence Analyst', 'Data Scientist', 'Product Analyst', 'Marketing Analyst', 'Operations Analyst', 'Analytics Engineer'],
+        responsibilities: ['Clarify the business question and define success metrics.', 'Extract data using SQL, spreadsheets, APIs, or analytics platforms.', 'Clean, validate, combine, and document datasets.', 'Build dashboards, visualizations, reports, or predictive models.', 'Present findings and distinguish evidence from assumptions.'],
+        day: ['Check scheduled reports and data refreshes', 'Write SQL for stakeholder requests', 'Clean and explore data', 'Build a visualization or model', 'Present findings to product or operations teams'],
+        coworkers: 'Product, operations, business, technical, and nontechnical stakeholders.',
+        workload: 'Full-time office or remote work with extended periods of concentration. Deadlines often follow executive reviews, reporting cycles, experiments, and product launches.',
+        entry: ['Data Analyst', 'Business Intelligence Analyst', 'Junior Data Analyst'],
+        salary: '$114,880 Utah statewide mean for data scientists (May 2025); median $108,090. The 10th percentile is about $60,680. Entry-level data analyst roles can differ substantially from data scientist roles.',
+        workStyle: 'Coding: Moderate to high · Meetings: Moderate · Operational urgency: Usually planned; urgent reporting can occur',
+        output: 'Query, dashboard, analysis, model, or recommendation',
+        tryIf: ['You like finding patterns and evidence', 'You enjoy numbers and analytical problems', 'You want your work to support decisions']
+      },
+      {
+        id: 'cyber',
+        title: 'Cybersecurity Analyst',
+        category: 'Protect',
+        description: 'Protect a company’s technology and data by watching for suspicious activity, fixing weaknesses, responding to attacks, and supporting secure practices.',
+        keywords: ['security', 'protect', 'investigate', 'technical'],
+        formal: 'Protects information systems by monitoring threats, assessing vulnerabilities, configuring safeguards, investigating suspicious activity, responding to incidents, and supporting security governance.',
+        roles: ['Security Operations Center Analyst', 'Information Security Analyst', 'Incident Response Analyst', 'Vulnerability Management Analyst', 'GRC Analyst', 'Identity and Access Management Analyst', 'Penetration Tester'],
+        responsibilities: ['Monitor security alerts, logs, network activity, and access events.', 'Investigate suspicious behavior and determine whether an incident occurred.', 'Assess vulnerabilities and prioritize remediation.', 'Configure or recommend firewalls, encryption, endpoint protection, and access controls.', 'Document incidents and research emerging threats.'],
+        day: ['Review overnight alerts', 'Investigate unusual login activity', 'Check vulnerability reports', 'Meet with IT teams about remediation', 'Update incident or risk documentation'],
+        coworkers: 'IT teams, software teams, security operations, risk/compliance teams, and organizational leadership.',
+        workload: 'Relatively unpredictable. Normal full-time schedules may be interrupted by incidents, on-call rotations, audits, major changes, or active breaches.',
+        entry: ['Cybersecurity Analyst', 'SOC Analyst', 'Information Security Analyst'],
+        salary: '$105,680 Utah statewide mean for information security analysts (May 2025); median $99,690. The reported 10th–90th percentile range is about $48,630–$168,830.',
+        workStyle: 'Coding: Moderate · Meetings: Moderate · Operational urgency: Potentially very high',
+        output: 'Alert investigation, risk finding, control, or incident report',
+        tryIf: ['You enjoy investigating problems', 'You want to protect systems and information', 'You can stay careful and focused under pressure']
+      },
+      {
+        id: 'pm',
+        title: 'IT Project Manager',
+        category: 'Lead',
+        description: 'Keep technology projects organized and moving by making plans, coordinating people, tracking deadlines and costs, and solving blockers.',
+        keywords: ['lead', 'organize', 'people', 'project'],
+        formal: 'Plans, coordinates, and controls technology initiatives so scope, schedule, cost, quality, risks, dependencies, and stakeholder expectations are managed.',
+        roles: ['IT Project Coordinator', 'IT Project Manager', 'Scrum Master', 'Technical Program Manager', 'Implementation Project Manager', 'PMO Analyst', 'Delivery Manager'],
+        responsibilities: ['Define objectives, scope, deliverables, milestones, and success criteria.', 'Build and maintain project plans, schedules, budgets, and resource forecasts.', 'Coordinate work and clarify ownership.', 'Track dependencies, risks, issues, costs, and progress.', 'Communicate status and manage changes to scope, schedule, or resources.'],
+        day: ['Review project progress', 'Prepare for stand-ups or status meetings', 'Follow up on overdue tasks', 'Update the project plan', 'Resolve dependencies and communicate risks'],
+        coworkers: 'Technical and business contributors, clients, sponsors, vendors, managers, and delivery teams.',
+        workload: 'Highly collaborative and meeting-intensive. Mostly normal business hours, with additional availability possible for cross-time-zone teams, deployments, missed deadlines, and cutovers.',
+        entry: ['IT Project Coordinator', 'Project Management Intern', 'PMO Analyst'],
+        salary: '$101,770 Utah statewide mean for project management specialists (May 2025); median $96,720. This category includes project managers outside IT.',
+        workStyle: 'Coding: Low · Meetings: Very high · Operational urgency: High near deadlines',
+        output: 'Project plan, status report, risk decision, or completed milestone',
+        tryIf: ['You like organizing people and priorities', 'You enjoy leading without doing every technical task yourself', 'You like schedules, milestones, and getting work across the finish line']
+      },
+      {
+        id: 'uxpm',
+        title: 'UX Designer / Product Manager',
+        category: 'Create',
+        description: 'UX designers make products easier and more enjoyable to use; product managers decide which customer problems to solve and what should be built next.',
+        keywords: ['users', 'design', 'product', 'creative'],
+        formal: 'This track combines two distinct roles. UX designers research users and design experiences; product managers define product direction, prioritize problems, manage roadmaps and backlogs, and coordinate teams around outcomes.',
+        roles: ['UX Designer', 'UI Designer', 'Product Designer', 'UX Researcher', 'Associate Product Manager', 'Product Manager', 'Technical Product Manager'],
+        responsibilities: ['Conduct user interviews, surveys, observation, and usability testing.', 'Create user flows, wireframes, prototypes, and interface designs.', 'Define product vision, goals, and success metrics.', 'Prioritize features, defects, and technical investments.', 'Maintain roadmaps and coordinate launches.'],
+        day: ['Interview users or analyze research', 'Sketch workflows or build prototypes', 'Conduct usability sessions', 'Review product metrics and prioritize backlog items', 'Meet with engineering/design and communicate decisions'],
+        coworkers: 'Users, customers, developers, designers, engineering, marketing, sales, and leadership.',
+        workload: 'Collaborative and revision-heavy. UX balances user needs, accessibility, business goals, and technical constraints; product management carries substantial decision and communication load.',
+        entry: ['UX Designer Intern', 'Associate Product Manager', 'Junior Product Designer'],
+        salary: 'UX/interface design: $106,760 Utah statewide mean for web and digital interface designers (May 2025), median $99,990. Product management: $112,000 average base salary in Salt Lake City from a market survey; this is not an official statewide estimate.',
+        workStyle: 'Coding: Low to moderate · Meetings: High · Operational urgency: Moderate near releases',
+        output: 'Prototype, research finding, roadmap, or prioritized requirement',
+        tryIf: ['You enjoy understanding users', 'You like creative problem-solving and iteration', 'You want to shape products and experiences']
+      },
+      {
+        id: 'erp',
+        title: 'ERP / Systems Consultant',
+        category: 'Optimize',
+        description: 'Help companies set up and improve major business software by learning how the business works, configuring systems, moving data, testing, training, and supporting launch.',
+        keywords: ['business', 'systems', 'clients', 'process'],
+        formal: 'Helps organizations select, configure, implement, integrate, and optimize enterprise platforms such as SAP, Oracle, Microsoft Dynamics, Salesforce, or comparable systems.',
+        roles: ['ERP Functional Consultant', 'ERP Technical Consultant', 'SAP Consultant', 'Oracle Cloud Consultant', 'Microsoft Dynamics Consultant', 'Salesforce Consultant', 'Implementation Consultant', 'Solution Architect'],
+        responsibilities: ['Conduct discovery workshops and document business requirements.', 'Map processes to platform capabilities.', 'Configure modules, workflows, security, reports, and automation.', 'Clean, migrate, and validate business data.', 'Test, train users, support go-live, and evaluate adoption.'],
+        day: ['Run client workshops and process mapping', 'Configure systems and document decisions', 'Prepare tests and validate migrated data', 'Resolve defects near go-live', 'Train users and support post-launch stabilization'],
+        coworkers: 'Business users, developers, vendors, project managers, clients, and implementation teams.',
+        workload: 'Client-facing and deadline-driven with many meetings, detailed documentation, context switching, and coordination. Go-live periods may require nights or weekends; travel depends on the firm and client.',
+        entry: ['ERP Implementation Analyst', 'Junior ERP Consultant', 'Systems Implementation Consultant'],
+        salary: 'Approximately $69,934 average in a Utah market estimate. A separate 2026 estimate places entry-level ERP consultants near $59,378. These are approximate market figures, not official BLS estimates.',
+        workStyle: 'Coding: Low to high by specialty · Meetings: Very high · Operational urgency: High at go-live',
+        output: 'Configured workflow, migrated data, test result, or training',
+        tryIf: ['You like business processes and technology together', 'You enjoy working directly with clients', 'You like learning complex systems and improving how organizations operate']
+      },
+      {
+        id: 'cloud',
+        title: 'Cloud / Infrastructure Engineer',
+        category: 'Infrastructure',
+        description: 'Keep the technology behind applications running by creating infrastructure, automating setup, monitoring systems, fixing outages, securing access, and managing cloud costs.',
+        keywords: ['cloud', 'infrastructure', 'technical', 'systems'],
+        formal: 'Designs, deploys, automates, secures, monitors, and maintains the computing environments on which applications and data depend, including cloud, servers, networks, identity, storage, databases, backups, and reliability.',
+        roles: ['Cloud Engineer', 'Infrastructure Engineer', 'Cloud Administrator', 'Network Engineer', 'Site Reliability Engineer', 'DevOps Engineer', 'Platform Engineer', 'Cloud Solutions Architect'],
+        responsibilities: ['Design and deploy cloud or on-premises infrastructure.', 'Configure networking, compute, storage, databases, and domain services.', 'Automate infrastructure through code and deployment pipelines.', 'Monitor performance, capacity, security, availability, and cost.', 'Troubleshoot incidents and implement backup, recovery, and disaster-recovery plans.'],
+        day: ['Check dashboards, system health, and alerts', 'Troubleshoot application slowdowns', 'Review infrastructure-code changes', 'Provision test environments or adjust permissions', 'Improve deployment pipelines and review cloud expenses'],
+        coworkers: 'Software, security, database, and operations teams.',
+        workload: 'Technically intensive and often includes on-call responsibility. Production incidents, upgrades, migrations, and maintenance windows may require evening or weekend work.',
+        entry: ['Cloud Support Engineer', 'Junior Cloud Engineer', 'Systems Administrator'],
+        salary: '$127,970 Utah statewide mean for computer network architects (May 2025), a senior-leaning infrastructure proxy; median $121,000. Entry-level cloud support and systems administration may align more closely with a $101,210 mean for network and computer systems administrators.',
+        workStyle: 'Coding: High for automation · Meetings: Moderate · Operational urgency: High during outages',
+        output: 'Environment, deployment pipeline, architecture, or restored service',
+        tryIf: ['You enjoy technical systems and infrastructure', 'You like automation and troubleshooting', 'You want to understand what keeps applications reliable']
+      }
+    ];
+
+    const careerPrep = {
+  "developer": {
+    "skills": [
+      "Programming fundamentals (Python, Java, JavaScript, or similar)",
+      "Git and collaborative code workflows",
+      "SQL, APIs, debugging, and testing",
+      "Problem decomposition and technical communication"
+    ],
+    "foot": [
+      "Build a small full-stack app and publish the code on GitHub",
+      "Contribute a bug fix, documentation update, or small feature to an existing project",
+      "Apply for software, QA automation, or development internships",
+      "Practice explaining your code and design choices out loud"
+    ],
+    "projects": [
+      "Personal task or habit-tracking app with authentication and a database",
+      "API-powered dashboard that consumes and transforms public data",
+      "Automated testing project for a small web application"
+    ]
+  },
+  "analyst": {
+    "skills": [
+      "Requirements gathering and stakeholder interviewing",
+      "Process mapping, user stories, and acceptance criteria",
+      "Excel/Sheets, SQL, and basic data analysis",
+      "Clear documentation and presentation"
+    ],
+    "foot": [
+      "Map a real process and propose a better future-state workflow",
+      "Volunteer to document requirements or organize a team project",
+      "Build a simple requirements + prototype portfolio case study",
+      "Target business analyst, systems analyst, and implementation internships"
+    ],
+    "projects": [
+      "Process-improvement case study with current/future-state maps",
+      "Requirements document for a mock campus app",
+      "SQL/Excel analysis that ends with a business recommendation"
+    ]
+  },
+  "data": {
+    "skills": [
+      "SQL and spreadsheet fluency",
+      "Data cleaning, validation, and visualization",
+      "Python/R basics and statistics",
+      "Storytelling with data and communicating limitations"
+    ],
+    "foot": [
+      "Create 2\u20133 polished analytics projects with a clear business question",
+      "Publish dashboards or notebooks with explanations, not just charts",
+      "Practice presenting one insight to a nontechnical audience",
+      "Target data analyst, BI, product analyst, and analytics internships"
+    ],
+    "projects": [
+      "Sales or customer-retention dashboard",
+      "Messy-dataset cleaning and analysis notebook",
+      "A/B-test or survey analysis with an executive-style recommendation"
+    ]
+  },
+  "cyber": {
+    "skills": [
+      "Networking and operating-system fundamentals",
+      "Identity/access, logging, and security concepts",
+      "Basic scripting and command-line troubleshooting",
+      "Incident thinking, documentation, and risk awareness"
+    ],
+    "foot": [
+      "Build a small home lab or virtual lab and document what you learned",
+      "Complete beginner-friendly security labs/CTFs ethically and keep notes",
+      "Look for IT, SOC, security, or risk/compliance internships",
+      "Learn to explain a security finding in business terms"
+    ],
+    "projects": [
+      "Home lab with logging and alert investigation walkthrough",
+      "Security hardening checklist for a sample environment",
+      "Incident-response tabletop with timeline, evidence, and lessons learned"
+    ]
+  },
+  "pm": {
+    "skills": [
+      "Planning, prioritization, and dependency tracking",
+      "Communication, meeting facilitation, and follow-up",
+      "Risk, issue, scope, and stakeholder management",
+      "Jira/Trello/Asana-style project tooling"
+    ],
+    "foot": [
+      "Lead a student or class project and keep a real project plan",
+      "Create status updates, risk logs, and milestone tracking for your team",
+      "Volunteer for project coordinator or PMO responsibilities",
+      "Target project coordinator, implementation, and PM internships"
+    ],
+    "projects": [
+      "End-to-end project plan for a campus technology rollout",
+      "Risk register and communication plan for a fictional implementation",
+      "Retrospective showing what changed, why, and what you would improve"
+    ]
+  },
+  "uxpm": {
+    "skills": [
+      "User interviews and usability testing",
+      "Wireframing/prototyping with Figma or similar tools",
+      "Product thinking, prioritization, and success metrics",
+      "Accessibility and clear visual communication"
+    ],
+    "foot": [
+      "Redesign a confusing experience and document the research behind it",
+      "Build a small portfolio with problem \u2192 research \u2192 prototype \u2192 test \u2192 iteration",
+      "Interview users instead of relying only on your own assumptions",
+      "Target UX, product design, UX research, or associate product roles"
+    ],
+    "projects": [
+      "Campus-service redesign with user interviews",
+      "Usability test of an existing website and prioritized recommendations",
+      "Feature concept with user flow, prototype, roadmap, and success metrics"
+    ]
+  },
+  "erp": {
+    "skills": [
+      "Business-process mapping and requirements",
+      "Enterprise-system concepts and data quality",
+      "Configuration mindset, testing, and documentation",
+      "Client communication and change management"
+    ],
+    "foot": [
+      "Learn the basics of one enterprise platform and its business processes",
+      "Build process maps and requirements artifacts for portfolio evidence",
+      "Seek implementation, operations, ERP, or systems internships",
+      "Practice explaining a technical configuration to a business user"
+    ],
+    "projects": [
+      "Mock ERP implementation for a small business process",
+      "Data-migration cleanup and validation exercise",
+      "Training guide and test plan for a fictional ERP rollout"
+    ]
+  },
+  "cloud": {
+    "skills": [
+      "Networking, Linux, and operating-system fundamentals",
+      "Cloud concepts across compute, storage, networking, and identity",
+      "Infrastructure as code, scripting, and automation",
+      "Monitoring, reliability, security, and troubleshooting"
+    ],
+    "foot": [
+      "Build a small cloud environment and document the architecture",
+      "Automate setup or deployment with infrastructure-as-code tools",
+      "Earn a beginner cloud credential or complete hands-on labs",
+      "Target cloud support, systems administration, DevOps, or infrastructure internships"
+    ],
+    "projects": [
+      "Cloud-hosted application with monitoring and documented architecture",
+      "Infrastructure-as-code deployment for a repeatable environment",
+      "CI/CD pipeline with a safe rollback or recovery demonstration"
+    ]
+  }
+};
+
+    // Five clickable questions. The logic is intentionally simple and editable.
+    const treeQuestions = [
+      {
+        text: 'What kind of problem sounds most satisfying to solve?',
+        choices: [
+          { label: 'Build something', detail: 'I want to create or improve a technical solution.', scores: ['developer', 'cloud'] },
+          { label: 'Understand the data', detail: 'I like finding patterns, evidence, and insights.', scores: ['data'] },
+          { label: 'Protect something', detail: 'I enjoy investigating risk and keeping systems safe.', scores: ['cyber'] },
+          { label: 'Improve how work gets done', detail: 'I want to make processes, products, or systems better.', scores: ['analyst', 'erp', 'uxpm'] }
+        ]
+      },
+      {
+        text: 'Where would you rather spend your time?',
+        choices: [
+          { label: 'Deep in technology', detail: 'Tools, systems, code, infrastructure, or technical problems.', scores: ['developer', 'cyber', 'cloud'] },
+          { label: 'Between people and technology', detail: 'Translate needs, coordinate teams, or improve processes.', scores: ['analyst', 'erp', 'pm'] },
+          { label: 'Understanding users', detail: 'Learn what people need and shape their experience.', scores: ['uxpm'] },
+          { label: 'Working with evidence', detail: 'Explore data and turn it into useful insight.', scores: ['data'] }
+        ]
+      },
+      {
+        text: 'Which outcome would make you proudest?',
+        choices: [
+          { label: 'A working product', detail: 'People can use something I helped build.', scores: ['developer', 'uxpm'] },
+          { label: 'A better decision', detail: 'Leaders can act with clearer evidence.', scores: ['data', 'analyst'] },
+          { label: 'A safer organization', detail: 'A risk or vulnerability is better controlled.', scores: ['cyber'] },
+          { label: 'A project delivered', detail: 'People and technology came together successfully.', scores: ['pm', 'erp', 'cloud'] }
+        ]
+      },
+      {
+        text: 'How do you want your work to feel?',
+        choices: [
+          { label: 'Technical & hands-on', detail: 'I want to spend meaningful time solving technical problems.', scores: ['developer', 'cyber', 'cloud'] },
+          { label: 'Collaborative & organized', detail: 'I like coordinating people, plans, and priorities.', scores: ['pm', 'analyst', 'erp'] },
+          { label: 'Creative & user-focused', detail: 'I enjoy shaping experiences around real people.', scores: ['uxpm'] },
+          { label: 'Analytical & evidence-driven', detail: 'I like careful analysis and finding meaning in information.', scores: ['data'] }
+        ]
+      },
+      {
+        text: 'Which statement sounds most like the career you want to test first?',
+        choices: [
+          { label: '“I want to build.”', detail: 'Software, applications, or technology infrastructure.', scores: ['developer', 'cloud'] },
+          { label: '“I want to analyze.”', detail: 'Data, systems, risks, and business problems.', scores: ['data', 'cyber', 'analyst'] },
+          { label: '“I want to lead.”', detail: 'Projects, stakeholders, systems, and outcomes.', scores: ['pm', 'erp'] },
+          { label: '“I want to design.”', detail: 'Products and experiences around users.', scores: ['uxpm'] }
+        ]
+      }
+    ];
+
+    const interviewBank = {
+      developer: [
+        {"type": "Behavioral", "question": "Tell me about a time you solved a difficult technical problem.", "answer": "In a class project, our application returned inconsistent results because different parts of the code handled missing data differently. I reproduced the issue, narrowed it to the validation logic, and worked with my teammate on one consistent approach. I added validation, tested edge cases, and documented the change. The application became more reliable, and I learned that a strong technical solution includes diagnosis, testing, and communication\\u2014not just getting code to work once."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to learn a new technology quickly.", "answer": "For a project, I needed to use a framework I had not worked with before. I first learned the core concepts from the documentation, then built a small test feature before applying it to the project. When I got stuck, I isolated the problem rather than guessing. That let me contribute confidently while keeping the implementation maintainable. It showed me that I learn technology fastest by combining documentation, small experiments, and practical application."},
+        {"type": "Technical", "question": "How would you design an application for reliability?", "answer": "I would start by understanding requirements and failure points, then separate the application into clear components with appropriate validation and error handling. I would use automated tests, logging, monitoring, and version control so problems can be detected and traced. I would also consider security, database reliability, and deployment processes. My goal would be not only to make the happy path work, but to make failures predictable, observable, and recoverable."},
+        {"type": "Technical", "question": "What is the difference between an API and a database?", "answer": "A database is primarily used to store and retrieve structured information, while an API provides a defined way for software systems to communicate and request actions or data. An application might use an API to request customer information and the service behind that API might retrieve it from a database. Keeping those responsibilities separate can improve security, maintainability, and integration between systems."},
+        {"type": "Behavioral", "question": "Describe a time you received critical feedback on your work.", "answer": "On a project, I was told that my implementation worked but was difficult for another teammate to understand. Instead of treating that as only a style preference, I asked what would make it easier to maintain. I simplified some logic, improved naming, and added documentation. The next review was much smoother. I learned that good software is not just correct; it should also be understandable and maintainable by the team."},
+        {"type": "Technical", "question": "How would you decide whether logic belongs in the front end or back end?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What steps would you take to debug a bug you cannot immediately reproduce?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you design a database for a simple ordering system?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is version control and why does a development team need it?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you test a new feature before releasing it?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is technical debt, and how would you decide when to address it?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you worked with someone whose technical approach differed from yours.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For software development, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to balance speed with quality.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For software development, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a project where you had to break a large problem into smaller pieces.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For software development, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Tell me about a time something you built failed. What did you do next?", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For software development, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you protect an application from common security mistakes?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What makes code maintainable?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you investigate a slow application?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is an API endpoint, and what makes an API easy to use?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to explain a technical tradeoff.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For software development, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a time you disagreed with a teammate during a project.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For software development, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you choose between building a feature and using an existing service?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is the purpose of automated tests?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you improved something after seeing how users actually used it.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For software development, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you approach deploying a change safely?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For software development, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."}
+      ],
+      analyst: [
+        {"type": "Behavioral", "question": "Tell me about a time you had to understand a problem from someone else\\u2019s perspective.", "answer": "In a team project, different teammates described the same problem differently. I asked each person what they were trying to accomplish, where the current process broke down, and what a successful outcome would look like. I mapped those answers into a shared process and identified the common requirement. That helped the team move from competing opinions to a specific problem statement and gave us a clearer basis for our solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you improved a process.", "answer": "I noticed that a team was repeatedly doing the same manual steps and checking the same information in multiple places. I documented the current process, identified duplicate work, and proposed a simpler sequence with clearer ownership. We tested the new process on a small scale and adjusted it based on feedback. The result was less confusion and fewer repeated steps. I learned to improve processes by understanding the current state before proposing the future state."},
+        {"type": "Technical", "question": "How would you gather requirements for a new information system?", "answer": "I would begin by identifying stakeholders and understanding the business objective. Then I would conduct interviews or observation, document the current process, identify pain points, and translate needs into specific functional and nonfunctional requirements. I would validate those requirements with stakeholders, prioritize them, and define acceptance criteria. I would also look for conflicting requirements early so the team can resolve them before development."},
+        {"type": "Technical", "question": "What is the difference between a functional and nonfunctional requirement?", "answer": "A functional requirement describes what a system should do, such as allowing a user to submit an order. A nonfunctional requirement describes how well or under what constraints it should operate, such as performance, security, availability, or usability. Both matter because a system can provide the right functions and still fail if it is too slow, insecure, or difficult to use."},
+        {"type": "Behavioral", "question": "Describe a time you had to communicate technical information to a nontechnical person.", "answer": "I focus first on the person\\u2019s goal rather than the technology itself. In a project, I explained a technical limitation by describing what the user would experience, why it mattered, and what options we had. I avoided unnecessary jargon and checked for understanding before moving on. That made the discussion more productive and helped us make a decision based on business impact rather than technical vocabulary."},
+        {"type": "Technical", "question": "How would you identify stakeholders for a new system?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you prioritize conflicting requirements?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What makes a good user story?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you validate that a proposed process improvement actually works?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you document a process that has many exceptions?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you asked questions that changed your understanding of a problem.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For business and systems analysis, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a time you had to organize ambiguous information.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For business and systems analysis, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Tell me about a time two stakeholders wanted different outcomes.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For business and systems analysis, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you prepare for user acceptance testing?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is a process map useful for?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you evaluate whether a software solution is a good fit?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to push back on a request.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For business and systems analysis, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a time you turned feedback into a clearer requirement.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For business and systems analysis, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you distinguish a symptom from a root cause?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What metrics could show that a new system improved a process?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to keep a group aligned on a decision.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For business and systems analysis, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you handle a requirement that cannot be implemented as requested?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you had to present an organized recommendation from messy information.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For business and systems analysis, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you compare two possible process designs?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For business and systems analysis, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time careful documentation prevented a problem.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For business and systems analysis, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."}
+      ],
+      data: [
+        {"type": "Behavioral", "question": "Tell me about a time you used data to make a decision.", "answer": "In a project, our team had several possible explanations for a problem. Instead of choosing the most convenient explanation, I defined the question, cleaned the relevant data, and compared the results across the possible factors. One pattern stood out clearly enough to change our recommendation. I explained both the result and the limitations of the analysis so the team could make an informed decision. That experience reinforced the importance of evidence and context."},
+        {"type": "Behavioral", "question": "Tell me about a time you found an error in your analysis.", "answer": "While reviewing a dataset, I noticed a result that seemed unusually strong. I traced the calculations and discovered that a filtering step had been applied inconsistently. I corrected the process, reran the analysis, and compared the new result with the original. I also added a validation check so the same issue would be easier to catch. The experience taught me that quality control is part of analysis, not something to do afterward."},
+        {"type": "Technical", "question": "How would you clean a messy dataset before analyzing it?", "answer": "I would first understand the meaning and source of each field. Then I would check for missing values, duplicates, inconsistent formats, invalid values, and potential outliers. I would establish rules for how each issue should be handled rather than changing values blindly. After cleaning, I would validate row counts, distributions, and key totals against a trusted source. I would document the decisions so someone else could reproduce the analysis."},
+        {"type": "Technical", "question": "How would you explain a statistical result to a business leader?", "answer": "I would start with the business question and the practical implication, then explain the key finding in plain language. I would distinguish correlation from causation and include the relevant uncertainty or limitations without overwhelming the audience with technical detail. For example, I might say that one customer segment showed a substantially higher retention rate, then explain how confident we are in that difference and what action it supports. The goal is a decision people can understand and trust."},
+        {"type": "Behavioral", "question": "Describe a time you had to present a finding that people did not expect.", "answer": "When an analysis produced a result that differed from the team\\u2019s expectation, I first verified the data and methodology before presenting it. Once I was confident in the result, I showed the evidence, explained the likely reasons, and acknowledged what the analysis could not prove. Because I presented the reasoning rather than simply the conclusion, the team was willing to discuss the finding and adjust its plan."},
+        {"type": "Technical", "question": "How would you decide which metric best answers a business question?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is the difference between correlation and causation?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you check whether a dataset is trustworthy?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What would you do if two data sources disagree?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you choose an appropriate chart for a dataset?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you changed your conclusion after seeing new evidence.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For data and analytics, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a time you had to work with incomplete information.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For data and analytics, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you explain an outlier to a stakeholder?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is a primary key, and why does it matter in data work?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you avoid misleading someone with a dashboard?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to defend your analysis.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For data and analytics, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you evaluate whether a predictive model is useful?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is overfitting in simple terms?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you had to turn a technical finding into an action.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For data and analytics, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you investigate a sudden change in a KPI?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What would you include in a data-analysis project so another person could reproduce it?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you received feedback on a presentation.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For data and analytics, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you handle missing data when the missingness itself may be meaningful?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you found a pattern that was not obvious at first.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For data and analytics, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you decide whether a question needs a dashboard, analysis, or model?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For data and analytics, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."}
+      ],
+      cyber: [
+        {"type": "Behavioral", "question": "Tell me about a time you identified and addressed a security or risk concern.", "answer": "During a project, I noticed that access to a shared resource was broader than necessary. I verified the current permissions, considered who actually needed access, and raised the issue with the team rather than changing something without authorization. We reduced access to the appropriate users and documented the decision. It reinforced for me that security is often about disciplined processes and least privilege, not just advanced tools."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to investigate an unfamiliar problem.", "answer": "I approached the problem by defining what was known, what was unusual, and what evidence could distinguish between possible causes. I checked logs and relevant configuration, tested one hypothesis at a time, and documented what I ruled out. When I found the likely cause, I verified it before recommending a fix. That method kept me from making assumptions and gave the team a clear investigation trail."},
+        {"type": "Technical", "question": "What is the principle of least privilege?", "answer": "Least privilege means giving a user, application, or service only the access it needs to perform its legitimate function, and no more. It reduces the potential impact of compromised accounts or mistakes. In practice, I would apply role-based access where appropriate, review permissions regularly, remove unnecessary access, and use stronger controls for sensitive operations."},
+        {"type": "Technical", "question": "How would you respond to a suspected security incident?", "answer": "I would follow the organization\\u2019s incident-response process rather than improvising. I would help preserve evidence, determine scope, contain the threat when authorized, and communicate through the appropriate escalation channels. After containment, the team would investigate root cause, remediate affected systems, and monitor for recurrence. I would also document the incident and identify process or control improvements so the organization learns from it."},
+        {"type": "Behavioral", "question": "How do you balance security with user convenience?", "answer": "I would start with the risk and the business need rather than assuming security always means adding friction. I would look for controls that reduce risk while keeping legitimate work practical, such as role-based access, strong authentication, automation, or clearer workflows. I would explain the reason for the control and use measurable risk to prioritize it. Good security should protect the organization while enabling people to do their jobs."},
+        {"type": "Technical", "question": "What is the difference between authentication and authorization?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you investigate a suspicious login?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is a vulnerability, and how would you prioritize one?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "Why are logs important in security operations?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is phishing, and how can organizations reduce its impact?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you noticed a small detail that mattered.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cybersecurity, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a time you had to stay calm while investigating a problem.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cybersecurity, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "What is multi-factor authentication and why does it help?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you explain risk to a nontechnical manager?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is the difference between a threat, vulnerability, and risk?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to follow a process even when you wanted to move faster.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cybersecurity, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you investigate repeated failed login attempts?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is network segmentation and why is it useful?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you had to document an investigation carefully.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cybersecurity, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you reduce the impact of a compromised account?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What would you look for when reviewing access permissions?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to learn a technical concept quickly.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cybersecurity, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you prepare an organization for a security incident before it happens?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you had to make a recommendation based on incomplete evidence.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cybersecurity, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "What makes a security control effective?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cybersecurity, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."}
+      ],
+      pm: [
+        {"type": "Behavioral", "question": "Tell me about a time you had to coordinate people with competing priorities.", "answer": "I started by clarifying the shared outcome and understanding each person\\u2019s constraint. I then separated must-have work from nice-to-have work, made dependencies visible, and agreed on owners and deadlines. When a conflict remained, I brought the tradeoff to the appropriate decision-maker with clear options. That approach helped the team make a decision instead of repeatedly revisiting the same disagreement."},
+        {"type": "Behavioral", "question": "Tell me about a time a project did not go according to plan.", "answer": "In a team project, a dependency took longer than expected and put the original timeline at risk. I updated the plan, identified what could continue in parallel, and communicated the impact early instead of waiting for the deadline. We adjusted priorities and protected the most important deliverable. The experience taught me that project management is less about pretending the plan will never change and more about responding to change deliberately."},
+        {"type": "Technical", "question": "How would you create a project plan for a new technology implementation?", "answer": "I would begin with the business objective, scope, stakeholders, and success criteria. Then I would break the work into deliverables, identify dependencies and milestones, assign ownership, estimate effort, and document major risks and assumptions. I would establish a communication cadence and a process for handling scope changes. Throughout the project, I would track progress against measurable outcomes rather than treating completion of tasks as the only definition of success."},
+        {"type": "Technical", "question": "How do you manage scope creep?", "answer": "First I would determine whether the new request is necessary for the stated outcome. If it is, I would assess its impact on time, cost, resources, risk, and existing commitments. I would present the tradeoff to the appropriate stakeholders and either formally add it, defer it, or replace lower-priority work. The key is making scope changes visible and intentional rather than allowing them to quietly consume the project."},
+        {"type": "Behavioral", "question": "Describe a time you had to deliver difficult news to a team.", "answer": "When a deadline was at risk, I communicated the issue as soon as I had enough evidence to explain it. I described what had changed, the impact on the deliverable, and the options available rather than assigning blame. I recommended the option that protected the most important outcome and asked for decisions where needed. The team appreciated having time to respond, and we were able to adjust before the problem became a surprise."},
+        {"type": "Technical", "question": "How would you estimate the work needed for a technology project?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is a project dependency, and how do you manage one?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you decide what belongs in a project milestone?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What information belongs in a useful status report?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you identify project risks early?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to motivate a team without formal authority.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For technology project delivery, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a time you had too many priorities at once.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For technology project delivery, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you handle a project that is behind schedule?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is the difference between a risk and an issue?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to get a decision from a busy stakeholder.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For technology project delivery, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you measure whether a project was successful?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you had to resolve a disagreement between teammates.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For technology project delivery, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you run an effective project kickoff?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What would you do if a key team member became unavailable?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you kept work moving despite uncertainty.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For technology project delivery, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you communicate a schedule change to leadership?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you decide whether a project change needs formal approval?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you had to follow up repeatedly to get work completed.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For technology project delivery, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you manage a project with several vendors?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For technology project delivery, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you learned something from a project that did not go well.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For technology project delivery, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."}
+      ],
+      uxpm: [
+        {"type": "Behavioral", "question": "Tell me about a time you used feedback to improve a user experience.", "answer": "In a project, users found one part of the workflow confusing. Instead of assuming the reason, I watched how people completed the task and asked targeted questions. I identified where the wording and sequence created uncertainty, proposed a simpler flow, and tested the revised version with users. Their feedback led to another small change that made the experience clearer. I learned that good design comes from observing real behavior and iterating."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to choose between two good ideas.", "answer": "I compared the ideas against the user problem, business objective, effort, and evidence available. One option had more visual appeal, but the other addressed the highest-impact user need with less complexity. I explained the tradeoff and recommended testing the simpler option first. That decision helped the team stay focused on outcomes instead of choosing based only on personal preference."},
+        {"type": "Technical", "question": "How would you approach designing a product feature?", "answer": "I would start by defining the user problem and the desired outcome, then learn from users and existing data. I would map the current experience, identify constraints, sketch possible solutions, and test the most promising concepts. After selecting an approach, I would work with engineering to define requirements and success metrics, then measure the released feature and iterate. The process keeps design connected to both user value and business goals."},
+        {"type": "Technical", "question": "What makes a good user experience?", "answer": "A good user experience helps people accomplish their goal efficiently, clearly, and with confidence. It should be understandable, accessible, consistent, and appropriate for the context. I would evaluate it through user research, usability testing, behavioral data, and qualitative feedback rather than relying only on personal taste. A polished interface is valuable, but the larger measure is whether it solves the user\\u2019s problem."},
+        {"type": "Behavioral", "question": "Describe a time you advocated for the user when there were competing business priorities.", "answer": "I first made the user impact concrete by identifying where the proposed approach would create confusion or additional work. I connected that impact to measurable outcomes such as completion, adoption, or support needs. Then I worked with stakeholders to find an option that protected the most important user need while respecting the business constraint. That experience taught me that user advocacy is strongest when it is supported by evidence and practical alternatives."},
+        {"type": "Technical", "question": "How would you decide what to learn from users before designing a feature?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is the difference between a wireframe and a prototype?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you prioritize product features?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is a usability test designed to reveal?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you measure whether a new feature helped users?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time user feedback challenged your original idea.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For user experience and product work, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a time you had to make a decision without perfect information.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For user experience and product work, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you design an accessible digital experience?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is an MVP and when is it useful?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to persuade others to change a design or product decision.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For user experience and product work, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you decide whether a problem is worth solving?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is a user journey, and why is it useful?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you balanced what people wanted with what was technically possible.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For user experience and product work, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you use product metrics without losing sight of qualitative feedback?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you test two possible designs?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you iterated after something did not work.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For user experience and product work, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you prioritize a backlog with limited engineering capacity?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you had to give or receive difficult design feedback.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For user experience and product work, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "What would you include in a product requirement?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For user experience and product work, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you represented someone else’s needs in a decision.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For user experience and product work, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."}
+      ],
+      erp: [
+        {"type": "Behavioral", "question": "Tell me about a time you had to learn a complex business process quickly.", "answer": "I began by identifying the purpose of the process and the people involved rather than trying to memorize every system screen. I mapped the major steps, inputs, decisions, and outputs, then asked questions about exceptions and pain points. I tested my understanding with realistic examples and documented what I learned. That approach helped me understand both the technology and the business reason behind it."},
+        {"type": "Behavioral", "question": "Tell me about a time you helped someone adopt a new system or process.", "answer": "I first learned what the person was trying to accomplish and where the new process felt different from the old one. I demonstrated the workflow using a realistic scenario, explained the reason for the change, and let the user practice. When questions came up, I documented recurring issues so the guidance could improve. The experience showed me that successful implementation depends on people understanding and trusting the new process, not just having the system configured."},
+        {"type": "Technical", "question": "What is an ERP system and why do organizations use one?", "answer": "An ERP system integrates major business processes and shared data across functions such as finance, procurement, inventory, sales, and operations. Organizations use ERP systems to reduce disconnected information, standardize processes, improve visibility, and support consistent reporting. An implementation also requires careful attention to configuration, integrations, data quality, security, testing, and change management because the system affects many parts of the business."},
+        {"type": "Technical", "question": "How would you approach an ERP implementation?", "answer": "I would start with business objectives, scope, stakeholders, and the current-state process. Then I would map requirements to the system, identify configuration and integration needs, address data migration, and define testing and training plans. I would use milestones and clear ownership for decisions and risks. Before go-live, I would validate critical business processes end to end and prepare support and rollback procedures. The goal is a working system that users can actually adopt."},
+        {"type": "Behavioral", "question": "Describe a time you had to manage ambiguity.", "answer": "When requirements were unclear, I avoided filling in the gaps with assumptions. I documented what was known, identified the decisions that were still open, and asked targeted questions of the people who owned the process. I then turned the answers into a more specific requirement and confirmed it before moving forward. That helped the team reduce rework and gave everyone a shared understanding of what success meant."},
+        {"type": "Technical", "question": "How would you map a business process to an ERP system?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What makes data migration risky?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you test an ERP workflow?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "Why is user acceptance important in an ERP implementation?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you handle a process that does not fit the standard system configuration?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to understand a process by talking to the people who perform it.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For enterprise systems and business processes, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a time you had to coordinate details across multiple people.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For enterprise systems and business processes, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "What is the difference between configuration and customization?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you prepare users for an ERP go-live?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to explain a complicated process simply.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For enterprise systems and business processes, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you validate migrated data?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is a business requirement versus a system requirement?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you found a process gap that others had missed.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For enterprise systems and business processes, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you manage defects discovered close to go-live?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "Why are integrations important in enterprise systems?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to manage competing stakeholder expectations.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For enterprise systems and business processes, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you document an ERP configuration decision?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you helped someone learn a new process.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For enterprise systems and business processes, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you decide whether to change a process or change the system?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For enterprise systems and business processes, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to keep working through a complex problem without an immediate answer.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For enterprise systems and business processes, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."}
+      ],
+      cloud: [
+        {"type": "Behavioral", "question": "Tell me about a time you solved a systems or infrastructure problem under pressure.", "answer": "During a time-sensitive project, a system issue threatened to delay the team. I focused first on stabilizing the situation and gathering facts instead of making broad changes. I checked likely failure points, communicated what I was investigating, and prioritized actions that reduced impact while working toward the root cause. After resolving it, I documented what happened and added a check or process improvement. The experience taught me to protect service first, communicate clearly, and learn from the incident."},
+        {"type": "Behavioral", "question": "Tell me about a time you automated a repetitive task.", "answer": "I noticed that a recurring task required the same manual steps and was prone to small errors. I documented the process, identified which steps could safely be automated, and created a repeatable solution. I tested it against several scenarios before using it regularly and kept a manual fallback available. The result was less repetitive work and more consistent execution. It taught me that good automation begins with understanding the process and validating the result."},
+        {"type": "Technical", "question": "What is infrastructure as code, and why is it useful?", "answer": "Infrastructure as code means defining and managing infrastructure through version-controlled configuration instead of manually setting up every environment. The same approved definitions can create repeatable development, testing, and production environments. It makes changes easier to review, track, test, and reproduce, and reduces configuration drift. I would still use code review, access controls, testing, and careful change management because automation can spread a mistake quickly if the configuration itself is wrong."},
+        {"type": "Technical", "question": "What is the difference between scalability and availability?", "answer": "Scalability is a system\\u2019s ability to handle increasing workload by adding or adjusting resources. Availability is the degree to which the service remains accessible and operational when users need it. A system can be highly available without scaling well, or scale well without being designed for resilience. In practice, I would consider both capacity planning and redundancy, monitoring, recovery, and failure handling."},
+        {"type": "Behavioral", "question": "How would you respond after making a change that caused an outage?", "answer": "I would take ownership and follow the incident process. My first priority would be restoring service safely, whether that meant rolling back or using another approved recovery method. I would communicate the impact and status clearly, preserve relevant evidence, and then participate in a blameless review to understand the contributing factors. Finally, I would help implement a concrete improvement such as better testing, monitoring, or change controls so the same failure is less likely to happen again."},
+        {"type": "Technical", "question": "What is the difference between a virtual machine and a container?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you troubleshoot a service that suddenly becomes unavailable?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "What is a load balancer used for?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you design backups for an important system?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "Why is monitoring important in infrastructure?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to troubleshoot something step by step.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cloud and infrastructure engineering, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Behavioral", "question": "Describe a time you improved a process through automation.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cloud and infrastructure engineering, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "What is a cloud region and why might an application use more than one?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you control cloud costs?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you made a mistake and had to recover quickly.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cloud and infrastructure engineering, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "What is a deployment pipeline?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you make an infrastructure change safer?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you had to explain a technical incident to someone outside IT.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cloud and infrastructure engineering, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "What is redundancy, and how does it improve reliability?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Technical", "question": "How would you troubleshoot a slow network connection?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you had to learn a new technical tool independently.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cloud and infrastructure engineering, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "What is the purpose of a health check?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Describe a time you had to prioritize the most important technical problem first.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cloud and infrastructure engineering, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."},
+        {"type": "Technical", "question": "How would you design an environment so changes are repeatable?", "answer": "I would start by clarifying the goal and constraints, then break the problem into smaller decisions. For cloud and infrastructure engineering, I would use the appropriate tools and evidence, test the approach on a small scale, and document the tradeoffs. I would also consider reliability, security, maintainability, and the impact on the people using the solution."},
+        {"type": "Behavioral", "question": "Tell me about a time you documented a technical process so someone else could use it.", "answer": "I would explain the situation, the specific action I took, and the result rather than only describing the task. For cloud and infrastructure engineering, I would emphasize how I communicated, handled constraints, and adjusted when new information appeared. I would finish with what I learned and how I would apply that lesson in a future project."}
+      ]
+    };
+    let treeIndex = 0;
+    let treeAnswers = [];
+    let selectedChoiceIndex = null;
+    let interviewRole = null;
+    let interviewIndex = 0;
+    let interviewSet = [];
+
+    function goTo(id) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+      const nav = document.getElementById('nav-' + id);
+      if (nav) nav.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (id === 'discover') renderTree();
+      if (id === 'interview') renderRoles();
+    }
+
+    function prepHtml(c) {
+      const p = careerPrep[c.id];
+      return `
+        <div class="prep-grid">
+          <div class="prep-box"><h4>Skills to build now</h4><ul>${p.skills.map(x => `<li>${x}</li>`).join('')}</ul></div>
+          <div class="prep-box"><h4>Get your foot in the door</h4><ul>${p.foot.map(x => `<li>${x}</li>`).join('')}</ul></div>
+          <div class="prep-box" style="grid-column:1/-1;"><h4>Project ideas</h4><ul>${p.projects.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        </div>`;
+    }
+
+    function careerModalHtml(c) {
+      return `
+        <div class="career-modal-header">
+          <div><span class="tag">${c.category}</span><h3 id="careerModalTitle">${c.title}</h3></div>
+          <button class="modal-close" onclick="closeCareerModal()" aria-label="Close">×</button>
+        </div>
+        <p>${c.description}</p>
+        <div class="modal-section"><h4>Career details</h4>
+          <div class="career-detail-grid">
+            <div class="career-detail-box"><strong>What you do</strong><p>${c.formal}</p></div>
+            <div class="career-detail-box"><strong>Who you work with</strong><p>${c.coworkers}</p></div>
+            <div class="career-detail-box"><strong>Typical day</strong><ul>${c.day.map(x => `<li>${x}</li>`).join('')}</ul></div>
+            <div class="career-detail-box"><strong>Core responsibilities</strong><ul>${c.responsibilities.map(x => `<li>${x}</li>`).join('')}</ul></div>
+            <div class="career-detail-box"><strong>Work style</strong><p>${c.workStyle}</p><p style="margin-top:6px;"><strong style="text-transform:none;letter-spacing:0;">Typical output:</strong> ${c.output}</p></div>
+            <div class="career-detail-box"><strong>Try this role if</strong><ul>${c.tryIf.map(x => `<li>${x}</li>`).join('')}</ul></div>
+          </div>
+          <div class="career-salary"><strong>Utah compensation:</strong> ${c.salary}</div>
+          <div style="margin-top:12px;"><strong style="font-size:.82rem; color:var(--muted);">COMMON ENTRY TITLES</strong><p style="margin:5px 0 0; color:#334155; font-size:.9rem;">${c.entry.join(' · ')}</p></div>
+        </div>
+        <div class="modal-section"><h4>Build toward this career</h4>${prepHtml(c)}</div>
+        <div class="actions"><button class="btn btn-primary" onclick="closeCareerModal(); openRoleFromCareer('${c.id}')">Practice this interview →</button></div>`;
+    }
+
+    function openCareerModal(id) {
+      const c = careers.find(c => c.id === id);
+      if (!c) return;
+      document.getElementById('careerModalContent').innerHTML = careerModalHtml(c);
+      document.getElementById('careerModal').classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCareerModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('careerModal').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    function renderCareerCards() {
+      const grid = document.getElementById('homeCareerGrid');
+      const list = document.getElementById('discoverCareerList');
+      grid.innerHTML = careers.map(c => `
+        <article class="card path-card">
+          <span class="tag">${c.category}</span>
+          <h3>${c.title}</h3>
+          <p>${c.description}</p>
+          <button class="btn btn-secondary" style="margin-top:auto; text-align:left;" onclick="openCareerModal('${c.id}')">View career details →</button>
+          <button class="path-link" style="margin-top:12px;" onclick="openRoleFromCareer('${c.id}')">Practice this path →</button>
+        </article>`).join('');
+
+      list.innerHTML = careers.map(c => `
+        <button class="career-option" onclick="openCareerModal('${c.id}')">
+          <h4>${c.title}</h4><p>${c.description}</p>
+          <div style="margin-top:9px; color:var(--blue); font-size:.84rem; font-weight:800;">View details & preparation →</div>
+        </button>`).join('');
+    }
+
+    function openRoleFromCareer(id) {
+      interviewRole = careers.find(c => c.id === id);
+      interviewIndex = 0;
+      interviewSet = [];
+      goTo('interview');
+    }
+
+    function renderTree() {
+      selectedChoiceIndex = treeAnswers[treeIndex] ?? null;
+      const q = treeQuestions[treeIndex];
+      document.getElementById('questionText').textContent = q.text;
+      document.getElementById('choiceGrid').innerHTML = q.choices.map((c, i) => `
+        <button class="choice ${selectedChoiceIndex === i ? 'selected' : ''}" onclick="selectChoice(${i})">
+          <span class="check">✓</span>
+          <strong>${c.label}</strong>
+          <span>${c.detail}</span>
+        </button>
+      `).join('');
+      const isLast = treeIndex === treeQuestions.length - 1;
+      document.getElementById('progressLabel').textContent = `Question ${treeIndex + 1} of ${treeQuestions.length}`;
+      const pct = Math.round(((treeIndex + 1) / treeQuestions.length) * 100);
+      document.getElementById('progressPercent').textContent = `${pct}%`;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+      document.getElementById('backBtn').disabled = treeIndex === 0;
+      document.getElementById('nextBtn').disabled = selectedChoiceIndex === null;
+      document.getElementById('nextBtn').textContent = isLast ? 'See my recommendation →' : 'Next question →';
+      document.getElementById('treeQuestion').style.display = 'block';
+      document.getElementById('treeResult').classList.remove('show');
+      document.getElementById('allPaths').style.display = 'none';
+    }
+
+    function selectChoice(i) {
+      selectedChoiceIndex = i;
+      treeAnswers[treeIndex] = i;
+      renderTree();
+    }
+
+    function treeBack() {
+      if (treeIndex === 0) return;
+      treeIndex--;
+      renderTree();
+    }
+
+    function treeNext() {
+      if (selectedChoiceIndex === null) return;
+      if (treeIndex < treeQuestions.length - 1) {
+        treeIndex++;
+        renderTree();
+      } else {
+        showTreeResult();
+      }
+    }
+
+    function scoreCareers() {
+      const scores = Object.fromEntries(careers.map(c => [c.id, 0]));
+      treeAnswers.forEach((answerIndex, qIndex) => {
+        const choice = treeQuestions[qIndex].choices[answerIndex];
+        if (!choice) return;
+        choice.scores.forEach(id => scores[id]++);
+      });
+      const max = Math.max(...Object.values(scores));
+      const winners = careers.filter(c => scores[c.id] === max);
+      // Deterministic tie-breaker so the prototype always lands on one role.
+      return { career: winners[0], score: max, scores };
+    }
+
+    function showTreeResult() {
+      const result = scoreCareers();
+      const c = result.career;
+      const reasons = [];
+      treeAnswers.forEach((answerIndex, qIndex) => {
+        const choice = treeQuestions[qIndex].choices[answerIndex];
+        if (choice && choice.scores.includes(c.id)) reasons.push(choice.label.toLowerCase());
+      });
+      const uniqueReasons = [...new Set(reasons)].slice(0, 3);
+      document.getElementById('treeQuestion').style.display = 'none';
+      const card = document.getElementById('treeResult');
+      card.innerHTML = `
+        <span class="result-kicker">Your starter recommendation</span>
+        <h3>${c.title}</h3>
+        <p>This is a starting point based on the choices you made—not a permanent decision about your career.</p>
+        <div class="reason-box">
+          <strong>Why the tool landed here</strong>
+          <div>Your choices emphasized ${uniqueReasons.length ? uniqueReasons.join(', ') : 'this career area'}.</div>
+        </div>
+        <div class="result-grid">
+          <div class="mini"><b>Typical day</b>${c.day.slice(0, 3).join(' · ')}</div>
+          <div class="mini"><b>Work style</b>${c.workStyle}</div>
+          <div class="mini"><b>Common entry titles</b>${c.entry.join(' · ')}</div>
+        </div>
+        <div class="career-detail-grid" style="margin-top:22px;">
+          <div class="career-detail-box"><strong>What you do</strong><p>${c.description}</p></div>
+          <div class="career-detail-box"><strong>Who you work with</strong><p>${c.coworkers}</p></div>
+          <div class="career-detail-box"><strong>Core responsibilities</strong><ul>${c.responsibilities.map(x => `<li>${x}</li>`).join('')}</ul></div>
+          <div class="career-detail-box"><strong>Typical day</strong><ul>${c.day.map(x => `<li>${x}</li>`).join('')}</ul></div>
+          <div class="career-detail-box"><strong>Typical output</strong><p>${c.output}</p></div>
+          <div class="career-detail-box"><strong>Try this role if</strong><ul>${c.tryIf.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        </div>
+        <div class="career-salary"><strong>Utah compensation:</strong> ${c.salary}</div>
+        <div class="modal-section"><h4>Skills to build now</h4><div class="prep-grid"><div class="prep-box"><ul>${careerPrep[c.id].skills.map(x => `<li>${x}</li>`).join('')}</ul></div></div></div>
+        <div class="modal-section"><h4>Get your foot in the door</h4><div class="prep-grid"><div class="prep-box"><ul>${careerPrep[c.id].foot.map(x => `<li>${x}</li>`).join('')}</ul></div></div></div>
+        <div class="modal-section"><h4>Project ideas</h4><div class="prep-grid"><div class="prep-box"><ul>${careerPrep[c.id].projects.map(x => `<li>${x}</li>`).join('')}</ul></div></div></div>
+        <div class="actions">
+          <button class="btn btn-primary" onclick="openRoleFromCareer('${c.id}')">Practice ${c.title} →</button>
+          <button class="btn btn-secondary" onclick="showAllPaths()">Explore all paths</button>
+          <button class="btn btn-secondary" onclick="restartTree()">Restart decision tree</button>
+        </div>
+      `;
+      card.classList.add('show');
+    }
+
+    function showAllPaths() {
+      document.getElementById('allPaths').style.display = 'block';
+      document.getElementById('allPaths').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function restartTree() {
+      treeIndex = 0;
+      treeAnswers = [];
+      selectedChoiceIndex = null;
+      renderTree();
+      document.getElementById('discover').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function renderRoles() {
+      const list = document.getElementById('roleList');
+      list.innerHTML = careers.map(c => `
+        <button class="role-choice ${interviewRole?.id === c.id ? 'active' : ''}" onclick="selectInterviewRole('${c.id}')">
+          <strong>${c.title}</strong>
+          <span>${c.category}</span>
+        </button>
+      `).join('');
+      renderInterviewPanel();
+    }
+
+    function selectInterviewRole(id) {
+      const nextRole = careers.find(c => c.id === id);
+      if (!nextRole) return;
+      interviewRole = nextRole;
+      interviewIndex = 0;
+      // Clear the old role's five-question set so the newly selected career
+      // immediately receives questions from its own 25-question bank.
+      interviewSet = [];
+      renderRoles();
+    }
+
+    function renderInterviewPanel() {
+      const panel = document.getElementById('interviewPanel');
+      if (!interviewRole) {
+        panel.innerHTML = '<div class="empty-state">Choose a career path to begin your mock interview.</div>';
+        return;
+      }
+      const bank = interviewBank[interviewRole.id] || [];
+      if (!interviewSet.length) {
+        // Each career has its own 25-question bank. Shuffle that bank and
+        // expose only five questions at a time.
+        interviewSet = [...bank].sort(() => Math.random() - 0.5).slice(0, 5);
+      }
+      const questions = interviewSet;
+      const q = questions[interviewIndex];
+      if (!q) return;
+      panel.innerHTML = `
+        <span class="type-pill">${q.type}</span>
+        <div style="margin-top:8px; color:var(--muted); font-size:.88rem; font-weight:800;">Question ${interviewIndex + 1} of ${questions.length}</div>
+        <h3>${q.question}</h3>
+        <div class="answer-box">
+          <details>
+            <summary>Show a strong sample answer</summary>
+            <div class="sample"><p>${q.answer}</p></div>
+          </details>
+        </div>
+        <div class="interview-note">You have a randomized set of 5 questions from a larger bank. Practice these five, then choose the role again for a different set.</div>
+        <div class="interview-controls">
+          <button class="btn btn-secondary" onclick="previousInterview()" ${interviewIndex === 0 ? 'disabled' : ''}>← Previous</button>
+          <button class="btn btn-primary" onclick="nextInterview()">${interviewIndex === questions.length - 1 ? 'Finish practice' : 'Next question →'}</button>
+        </div>
+      `;
+    }
+
+    function previousInterview() {
+      if (interviewIndex > 0) {
+        interviewIndex--;
+        renderInterviewPanel();
+      }
+    }
+
+    function nextInterview() {
+      const questions = interviewSet;
+      if (interviewIndex < questions.length - 1) {
+        interviewIndex++;
+        renderInterviewPanel();
+      } else {
+        document.getElementById('interviewPanel').innerHTML = `
+          <div class="empty-state">
+            <h3 style="margin-top:0; color:var(--ink);">Practice complete</h3>
+            <p>You’ve reached the end of the random 5-question ${interviewRole.title} interview set. Choose the role again to get a new set.</p>
+            <button class="btn btn-primary" onclick="interviewIndex=0; interviewSet=[]; renderInterviewPanel();">↻ Practice again</button>
+          </div>
+        `;
+      }
+    }
+
+    renderCareerCards();
+    renderTree();
+    document.getElementById('nav-home').classList.add('active');
+  </script>
+</body>
+</html>
