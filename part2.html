@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Interview — Career Pathfinder</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="brand">
+      <span class="brand__mark">Career Pathfinder</span>
+      <span class="brand__sub">BYU Information Systems</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="part1.html">Find My Path</a>
+      <a href="part2.html" aria-current="page">Mock Interview</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" style="margin-bottom: 2rem;">
+    <p class="hero__eyebrow">Part 2 — practice</p>
+    <h1>Mock interview</h1>
+    <p class="lede">Pick the career path you're most interested in and work through practice questions, one at a time, with a sample answer for each.</p>
+  </section>
+
+  <!-- JOB SELECT VIEW -->
+  <section id="select-view">
+    <h2>Choose a career path</h2>
+    <div class="career-grid" id="job-select-grid"></div>
+  </section>
+
+  <!-- INTERVIEW VIEW -->
+  <section id="interview-view" hidden>
+    <div class="progress">
+      <span class="progress__label" id="interview-progress-label">Question 1 of 3</span>
+      <div class="progress__track"><div class="progress__fill" id="interview-progress-fill"></div></div>
+    </div>
+
+    <p class="hero__eyebrow" id="interview-job-name" style="margin-bottom:0.5rem;"></p>
+
+    <div class="interview-panel">
+      <span class="question-type-badge" id="interview-type-badge"></span>
+      <p class="interview-panel__q-label">Practice question</p>
+      <p class="interview-panel__question" id="interview-question"></p>
+
+      <div class="attempt-block">
+        <label for="interview-attempt">Your answer &mdash; try it before you peek</label>
+        <textarea class="attempt-textarea" id="interview-attempt" placeholder="Type or talk through your answer here first. It's not saved or graded &mdash; it's just for you to compare against the sample."></textarea>
+      </div>
+
+      <button class="btn btn--brass" id="reveal-btn" type="button">Show sample answer</button>
+
+      <div class="reveal">
+        <div class="reveal__answer" id="interview-answer"></div>
+      </div>
+    </div>
+
+    <div class="interview-nav">
+      <button class="btn btn--ghost" id="interview-back-btn" type="button">&larr; Back</button>
+      <div class="btn-row">
+        <button class="btn btn--ghost" id="change-job-btn" type="button">Change career path</button>
+        <button class="btn btn--primary" id="next-question-btn" type="button">Next question &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLETE VIEW -->
+  <section id="complete-view" hidden>
+    <div class="complete-panel">
+      <p class="result__eyebrow">Practice complete</p>
+      <h2 id="complete-heading">Nice work.</h2>
+      <p class="muted" id="complete-copy"></p>
+      <div class="btn-row" style="margin-top: 1.25rem;">
+        <button class="btn btn--primary" id="redo-btn" type="button">Do this interview again</button>
+        <button class="btn btn--ghost" id="another-job-btn" type="button">Practice a different path</button>
+        <a class="btn btn--ghost" href="part1.html">Back to Find My Path</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <span>Career Pathfinder &middot; BYU Information Systems</span>
+    <span>Part 2 of 2 — Mock Interview</span>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/interview.js"></script>
+</body>
+</html>
