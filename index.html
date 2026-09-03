@@ -231,6 +231,19 @@
       font-size: .9rem;
     }
     .career-salary strong { color: var(--navy); }
+    .career-source {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: .76rem;
+      color: var(--muted);
+    }
+    .career-source a {
+      color: var(--navy);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .career-source a:hover { opacity: .75; }
     .career-grid { grid-template-columns: repeat(4, 1fr); }
 
     .module-banner {
@@ -435,7 +448,7 @@
     <!-- HOME -->
     <section id="home" class="view active">
       <div class="hero"><div class="hero-inner"><h1>BYU INFORMATION SYSTEMS PATHFINDER</h1><p class="hero-subtitle">Find an IS path. Then practice for the interview.</p></div></div>
-      <div class="section home-overview"><div class="section-heading"><h2>From career exploration to interview practice</h2><p>The prototype is intentionally structured so the content can be expanded as your team researches specific paths, tools, salaries, and interview formats.</p></div><div class="feature-grid"><article class="feature-card"><div class="feature-number">01</div><h3>Discover</h3><p>Answer a few clickable questions about the kind of work you enjoy. The decision tree recommends a career path and explains why it fits.</p></article><article class="feature-card"><div class="feature-number">02</div><h3>Explore</h3><p>Review the eight starter career tracks and see the categories that can be expanded into richer role profiles.</p></article><article class="feature-card"><div class="feature-number">03</div><h3>Practice</h3><p>Select a path and work through a mock interview with behavioral and technical question placeholders plus sample-answer guidance.</p></article></div><div class="module-banner"><div><h3 style="font-size:1.6rem; margin:0 0 7px;">Built for the first step of an IS career</h3><p style="margin:0;">Start broad, choose a direction, and use the same destination to launch focused interview preparation.</p></div><button class="btn btn-secondary" onclick="goTo('discover')">Take the decision tree</button></div></div>
+      <div class="section home-overview"><div class="section-heading"><h2>From career exploration to interview practice</h2><p></p></div><div class="feature-grid"><article class="feature-card"><div class="feature-number">1</div><h3>Discover</h3><p>Answer a few clickable questions about the kind of work you enjoy. The decision tree recommends a career path and explains why it fits.</p></article><article class="feature-card"><div class="feature-number">2</div><h3>Explore</h3><p>Review the eight starter career tracks and see the categories that can be expanded into richer role profiles.</p></article><article class="feature-card"><div class="feature-number">3</div><h3>Practice</h3><p>Select a path and work through a mock interview with behavioral and technical question placeholders plus sample-answer guidance.</p></article></div><div class="module-banner"><div><h3 style="font-size:1.6rem; margin:0 0 7px;">Built for the first step of an IS career</h3><p style="margin:0;">Start broad, choose a direction, and use the same destination to launch focused interview preparation.</p></div><button class="btn btn-secondary" onclick="goTo('discover')">Take The Career Placement Quiz</button></div></div>
       <div class="section home-paths" style="padding-top:10px;"><div class="section-heading"><h2>Eight starter career paths</h2><p>These eight tracks are the starting point. Open any path to see the role, skills to build now, ways to get your foot in the door, and project ideas.</p></div><div class="career-grid" id="homeCareerGrid"></div></div>
     </section>
 
@@ -541,28 +554,28 @@
 
           <div class="developer-grid">
             <article class="developer-card">
-              <div class="developer-avatar">01</div>
+              <div class="developer-avatar">1</div>
               <h3>Lot Holmstead <span class="photo-position">Right</span></h3>
               <p class="developer-role">Product design, research, and front-end development</p>
               <p class="developer-bio">Lot Holmstead is a BYU Information Systems student interested in AI, automation, and building practical technology products. He has experience in sales development, customer success, and CRM workflow automation, and enjoys applying technology to solve real business problems. Outside of school and work, Lot enjoys sports and outdoor activities—especially snowboarding and dirt biking.</p>
               <a class="developer-link" href="https://www.linkedin.com/in/lot-h/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
             </article>
             <article class="developer-card">
-              <div class="developer-avatar">02</div>
+              <div class="developer-avatar">2</div>
               <h3>Bryce Harman <span class="photo-position">Left</span></h3>
-              <p class="developer-role">[Role / Primary Contribution]</p>
-              <p class="developer-bio">[A short 2–3 sentence bio, including IS interests, project contribution, and a personal or career interest.]</p>
+              <p class="developer-role">Optimization, Research, and Design</p>
+              <p class="developer-bio">Bryce Harman is a BYU Information Systems student with a passion for technology and problem-solving. He enjoys creating websites and developing projects with Python while continually expanding his technical skills. Outside of school, Bryce enjoys traveling, hiking, and reading. He hopes to use his information systems skills to create practical solutions and make a positive impact.</p>
               <a class="developer-link" href="https://www.linkedin.com/in/bryce-harman18/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
             </article>
             <article class="developer-card">
-              <div class="developer-avatar">03</div>
+              <div class="developer-avatar">3</div>
               <h3>Jacob Irish <span class="photo-position">Middle left</span></h3>
               <p class="developer-role">[Role / Primary Contribution]</p>
               <p class="developer-bio">[A short 2–3 sentence bio, including IS interests, project contribution, and a personal or career interest.]</p>
               <a class="developer-link" href="https://www.linkedin.com/in/jacob-irish-465aa242b/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
             </article>
             <article class="developer-card">
-              <div class="developer-avatar">04</div>
+              <div class="developer-avatar">4</div>
               <h3>Matthew Grigoratos <span class="photo-position">Middle right</span></h3>
               <p class="developer-role">[Role / Primary Contribution]</p>
               <p class="developer-bio">[A short 2–3 sentence bio, including IS interests, project contribution, and a personal or career interest.]</p>
@@ -591,6 +604,7 @@
     const careers = [
       {
         id: 'developer',
+        source: { name: 'U.S. Bureau of Labor Statistics — Software Developers, Quality Assurance Analysts, and Testers', url: 'https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm' },
         title: 'Software / Application Developer',
         category: 'Build',
         description: 'Build and improve apps and computer programs by turning problems into working software, testing it, fixing errors, and updating it after launch.',
@@ -609,6 +623,7 @@
       },
       {
         id: 'analyst',
+        source: { name: 'U.S. Bureau of Labor Statistics — Computer Systems Analysts', url: 'https://www.bls.gov/ooh/computer-and-information-technology/computer-systems-analysts.htm' },
         title: 'Business / Systems Analyst',
         category: 'Bridge',
         description: 'Help a company use technology better by understanding business needs, improving processes, and connecting employees with technical teams.',
@@ -627,6 +642,7 @@
       },
       {
         id: 'data',
+        source: { name: 'U.S. Bureau of Labor Statistics — Data Scientists', url: 'https://www.bls.gov/ooh/math/data-scientists.htm' },
         title: 'Data Analyst / Data Scientist',
         category: 'Analyze',
         description: 'Find useful answers in numbers by cleaning data, looking for patterns, building charts or models, and explaining what an organization should do next.',
@@ -645,6 +661,7 @@
       },
       {
         id: 'cyber',
+        source: { name: 'U.S. Bureau of Labor Statistics — Information Security Analysts', url: 'https://www.bls.gov/ooh/computer-and-information-technology/information-security-analysts.htm' },
         title: 'Cybersecurity Analyst',
         category: 'Protect',
         description: 'Protect a company’s technology and data by watching for suspicious activity, fixing weaknesses, responding to attacks, and supporting secure practices.',
@@ -663,6 +680,7 @@
       },
       {
         id: 'pm',
+        source: { name: 'U.S. Bureau of Labor Statistics — Project Management Specialists', url: 'https://www.bls.gov/ooh/business-and-financial/project-management-specialists.htm' },
         title: 'IT Project Manager',
         category: 'Lead',
         description: 'Keep technology projects organized and moving by making plans, coordinating people, tracking deadlines and costs, and solving blockers.',
@@ -681,6 +699,7 @@
       },
       {
         id: 'uxpm',
+        source: { name: 'U.S. Bureau of Labor Statistics — Web Developers and Digital Designers', url: 'https://www.bls.gov/ooh/computer-and-information-technology/web-developers-and-digital-designers.htm' },
         title: 'UX Designer / Product Manager',
         category: 'Create',
         description: 'UX designers make products easier and more enjoyable to use; product managers decide which customer problems to solve and what should be built next.',
@@ -699,6 +718,7 @@
       },
       {
         id: 'erp',
+        source: { name: 'U.S. Bureau of Labor Statistics — Computer Systems Analysts', url: 'https://www.bls.gov/ooh/computer-and-information-technology/computer-systems-analysts.htm' },
         title: 'ERP / Systems Consultant',
         category: 'Optimize',
         description: 'Help companies set up and improve major business software by learning how the business works, configuring systems, moving data, testing, training, and supporting launch.',
@@ -717,6 +737,7 @@
       },
       {
         id: 'cloud',
+        source: { name: 'U.S. Bureau of Labor Statistics — Computer Network Architects', url: 'https://www.bls.gov/ooh/computer-and-information-technology/computer-network-architects.htm' },
         title: 'Cloud / Infrastructure Engineer',
         category: 'Infrastructure',
         description: 'Keep the technology behind applications running by creating infrastructure, automating setup, monitoring systems, fixing outages, securing access, and managing cloud costs.',
@@ -1206,6 +1227,7 @@
           <div style="margin-top:12px;"><strong style="font-size:.82rem; color:var(--muted);">COMMON ENTRY TITLES</strong><p style="margin:5px 0 0; color:#334155; font-size:.9rem;">${c.entry.join(' · ')}</p></div>
         </div>
         <div class="modal-section"><h4>Build toward this career</h4>${prepHtml(c)}</div>
+        <div class="career-source">Source: <a href="${c.source.url}" target="_blank" rel="noopener noreferrer">${c.source.name}</a></div>
         <div class="actions"><button class="btn btn-primary" onclick="closeCareerModal(); openRoleFromCareer('${c.id}')">Practice this interview →</button></div>`;
     }
 
@@ -1341,6 +1363,7 @@
           <div class="career-detail-box"><strong>Try this role if</strong><ul>${c.tryIf.map(x => `<li>${x}</li>`).join('')}</ul></div>
         </div>
         <div class="career-salary"><strong>Utah compensation:</strong> ${c.salary}</div>
+        <div class="career-source">Source: <a href="${c.source.url}" target="_blank" rel="noopener noreferrer">${c.source.name}</a></div>
         <section class="what-now-section" aria-label="What you can do now"><h3>What You Can Do Now</h3><p class="what-now-intro">Build practical evidence for this path while you are still in school.</p><div class="what-now-grid"><div class="prep-box"><h4>Skills to build now</h4><ul>${careerPrep[c.id].skills.map(x => `<li>${x}</li>`).join('')}</ul></div><div class="prep-box"><h4>Get your foot in the door</h4><ul>${careerPrep[c.id].foot.map(x => `<li>${x}</li>`).join('')}</ul></div><div class="prep-box what-now-projects"><h4>Project ideas</h4><ul>${careerPrep[c.id].projects.map(x => `<li>${x}</li>`).join('')}</ul></div></div></section>
         <section id="alumni-connection-section" class="alumni-inline" aria-label="Connect with BYU Alumni"></section>
         <div class="actions">
